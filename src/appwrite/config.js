@@ -122,7 +122,7 @@ export class Service {
 
   filePreview(fileId) {
     try {
-        return await this.buckets.getFilePreview(
+        return this.buckets.getFilePreview(
             conf.appwriteBucketId,
             fileId
         )

@@ -21,13 +21,14 @@ export class AuthService {
         name
       );
       if (userAccount) {
-   
-        this.login(email, password);
-      } else {
-        return userAccount;
+        // Await the login attempt and return the session if successful
+        const session = await this.login({ email, password });
+        return session;
       }
+      return null; // Explicitly return null if userAccount creation fails
     } catch (error) {
       console.log("Appwrite Service :: createAccount :: error", error);
+      throw error; // Throw error to be handled in SignUp component
     }
   }
 
@@ -36,8 +37,8 @@ export class AuthService {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
       console.log("Appwrite Service :: login :: error", error);
+      throw error; // Throw error to be handled in SignUp component
     }
-    return null;
   }
 
   async getCurrentUser() {
@@ -45,8 +46,8 @@ export class AuthService {
       return await this.account.get();
     } catch (error) {
       console.log("Appwrite Service :: getCurrentUser :: error", error);
+      throw error; // Throw error if fetching user fails
     }
-    return null;
   }
 
   async logout() {
@@ -54,8 +55,8 @@ export class AuthService {
       return await this.account.deleteSessions();
     } catch (error) {
       console.log("Appwrite Service :: logout :: error", error);
+      throw error; // Throw error to be handled where logout is called
     }
-    return null;
   }
 }
 

@@ -12,7 +12,7 @@ function Header() {
     {
       name: "Home",
       slug: "/",
-      active: true,
+      active: authStatus,
     },
     {
       name: "Login",
@@ -36,14 +36,14 @@ function Header() {
     },
   ];
   return (
-    <header className="w-full p-4 tracking-tighter">
+    <header className="w-full p-4 ">
       <nav className="flex items-center justify-between">
         <h1 className="font-bold text-lg tracking-tighter">WEB.DEV</h1>
-        <div className="flex items-center gap-5 ">
+        <div className="flex items-center gap-3">
           {navItem.map((item) => {
-            return item.active ? <Link className="font-normal" key={item.name} to={item.slug}> {item.name} </Link> : null;
+            return item.active ? <Link className="font-semibold" key={item.name} to={item.slug}> {item.name} </Link> : null;
           })}
-          {authStatus && <LogoutBtn/>}
+          {authStatus && <LogoutBtn/>}  
         </div>
       </nav>
     </header>
